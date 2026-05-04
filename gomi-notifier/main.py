@@ -1,5 +1,3 @@
-import schedule
-import time
 from scraper import get_schdule_html
 from parser import parse_schedule, get_tomorrow_gomi
 from line_bot import send_line
@@ -25,13 +23,10 @@ def main():
     send_line(message)
 
 
-schedule.every().day.at("18:28").do(main)
-print("スケジューラ起動中")
+
 
     
 
 if __name__ =="__main__":
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    main()
         
