@@ -1,0 +1,26 @@
+on:
+  schedule:
+    - cron: '30 8 * * *'  # 日本時間18:28（UTC+9なので9:28）
+  workflow_dispatch:      # 手動実行もできる
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: コード取得
+        uses: actions/checkout@v4
+
+      - name: Pythonセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: ライブラリインストール
+        run: pip install -r requirements.txt
+
+      - name: 実行
+        run: python main.py
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
+          USER_ID: ${{ secrets.USER_ID}}
